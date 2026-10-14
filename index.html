@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Affiliate Video Generator</title>
+<script src="https://js.puter.com/v2/"></script>
+<style>
+:root{--bg:#f3f6ff;--panel:#ffffff;--panel2:#f7f8ff;--line:#dfe5f5;--text:#18223d;--muted:#687493;--accent:#6d28d9;--accent2:#0891b2;--good:#059669;--warn:#d97706}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 8% 0%,#dbeafe 0,transparent 30%),radial-gradient(ellipse at 95% 12%,#f3d9ff 0,transparent 28%),linear-gradient(180deg,#f8faff 0%,#eef2ff 100%);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#7c3aed,#ec4899 55%,#06b6d4);font-size:23px;color:white;box-shadow:0 8px 22px #8b5cf633}.brand h1{font-size:clamp(19px,3vw,27px);margin:0;letter-spacing:-.5px}.brand p{margin:2px 0 0;color:var(--muted);font-size:13px}.pill{border:1px solid #ddd6fe;background:linear-gradient(90deg,#f3e8ff,#e0f2fe);color:#5b21b6;padding:8px 12px;border-radius:99px;font-size:12px;font-weight:800;white-space:nowrap}
+.hero{position:relative;overflow:hidden;padding:clamp(22px,4vw,36px);border:0;border-radius:26px;background:linear-gradient(115deg,#5b21b6 0%,#7c3aed 42%,#db2777 76%,#0891b2 115%);color:white;margin-bottom:22px;box-shadow:0 18px 45px #6d28d926}.hero:after{content:'✦';position:absolute;right:7%;top:-36px;font-size:180px;line-height:1;color:#ffffff18;transform:rotate(12deg)}.hero h2{position:relative;z-index:1;font-size:clamp(26px,4vw,39px);line-height:1.12;margin:0 0 10px;letter-spacing:-1px}.hero p{position:relative;z-index:1;max-width:760px;color:#f3e8ff;margin:0}.layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:20px}.panel{background:rgba(255,255,255,.94);border:1px solid #e0e7ff;border-radius:22px;padding:20px;min-width:0;box-shadow:0 12px 32px #253b8010}.panel h3{margin:0 0 15px;font-size:17px;color:#30245d;display:flex;align-items:center;gap:9px}.panel h3:before{content:'';display:inline-block;width:5px;height:22px;border-radius:99px;background:linear-gradient(#8b5cf6,#06b6d4)}.field{margin:15px 0}.field label{display:block;font-weight:650;margin-bottom:7px;font-size:13px;color:#dbe5fb}input[type=text],textarea,select{width:100%;background:#fbfcff;color:var(--text);border:1px solid #d9e1f2;border-radius:12px;padding:12px;font:inherit;outline:none;box-shadow:0 2px 5px #1e3a8a05}textarea{resize:vertical;min-height:86px}input:focus,textarea:focus,select:focus{border-color:var(--accent2);box-shadow:0 0 0 3px #22d3ee20}.upload{border:2px dashed #b9a7f6;background:linear-gradient(145deg,#faf5ff,#effaff);border-radius:17px;min-height:180px;display:grid;place-items:center;text-align:center;padding:18px;cursor:pointer;overflow:hidden;transition:.2s}.upload:hover{border-color:#7c3aed;background:linear-gradient(145deg,#f3e8ff,#e0f2fe)}.upload img{max-width:100%;max-height:290px;object-fit:contain;border-radius:9px}.upload strong{display:block;margin:8px 0}.upload small{color:var(--muted)}.upload input{display:none}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:12px;padding:12px 16px;font:inherit;font-weight:750;cursor:pointer;transition:transform .15s,opacity .15s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}.primary{background:linear-gradient(105deg,#6d28d9,#9333ea 48%,#db2777 78%,#0891b2);color:white;width:100%;margin-top:8px;box-shadow:0 9px 20px #7c3aed35}.secondary{background:linear-gradient(120deg,#f5f3ff,#eff6ff);color:#43317e;border:1px solid #d8d4fe}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.actions .btn{flex:1}.preview{background:linear-gradient(145deg,#111827,#312e81 65%,#0e7490);border:1px solid #d9def7;border-radius:18px;min-height:330px;display:grid;place-items:center;overflow:hidden;padding:12px;box-shadow:inset 0 0 30px #ffffff08}.preview video{width:100%;max-height:560px;border-radius:10px;background:#000}.empty{text-align:center;padding:30px;color:#dbeafe}.empty strong{color:#fff}.empty .symbol{color:#c4b5fd}.empty .symbol{font-size:42px;margin-bottom:8px}.status{display:none;margin-top:14px;border-radius:12px;padding:12px;background:#f5f3ff;border:1px solid #ddd6fe;color:#4c1d95;white-space:pre-wrap}.status.show{display:block}.status.error{background:#fff1f2;border-color:#fecdd3;color:#9f1239}.status.success{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}.spinner{display:inline-block;width:14px;height:14px;border:2px solid #8190ad;border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px;margin-right:8px}@keyframes spin{to{transform:rotate(360deg)}}.tip{font-size:12px;color:var(--muted);margin-top:12px}.captionBox{min-height:110px}.footer{color:var(--muted);font-size:12px;text-align:center;margin:24px 0 6px}.hidden{display:none!important}
+@media(max-width:800px){.wrap{padding:14px}.layout{grid-template-columns:1fr}.top{align-items:flex-start}.pill{white-space:normal;text-align:center}.hero{padding:20px}.panel{padding:16px}.preview{min-height:260px}}
+@media(max-width:420px){.row{grid-template-columns:1fr}.top{flex-direction:column}.pill{align-self:flex-start}.wrap{padding:12px}.hero{border-radius:20px}.panel{padding:14px;border-radius:18px}.btn{min-height:46px}.upload{min-height:155px}}
+
+/* Polesan tampilan: lebih bersih, ringkas, dan nyaman di HP */
+:root{--bg:#0a0f1b;--panel:#111827;--panel2:#172033;--line:#263247;--text:#f3f6fc;--muted:#a6b1c3;--accent:#7667f8;--accent2:#67d7e8}
+.wrap{max-width:1080px;padding:clamp(12px,3vw,28px)}
+.top{margin-bottom:20px}.logo{width:42px;height:42px;border-radius:12px;box-shadow:0 6px 20px #7667f830}
+.hero{padding:clamp(18px,3vw,28px);border-radius:20px;background:linear-gradient(125deg,rgba(118,103,248,.13),rgba(103,215,232,.045));margin-bottom:18px}
+.hero h2{font-size:clamp(23px,3.5vw,34px);letter-spacing:-.7px}.hero p{font-size:14px;line-height:1.7}
+.layout{gap:16px}.panel{border-radius:18px;padding:clamp(14px,2vw,20px);box-shadow:0 10px 32px rgba(0,0,0,.10)}
+.panel h3{font-size:15px;letter-spacing:.1px;margin-bottom:12px}
+.field{margin:12px 0}.field label{font-size:12px;color:#d5deed}
+input[type=text],textarea,select{border-radius:10px;padding:11px;font-size:14px;min-height:44px}
+textarea{min-height:78px}.upload{min-height:145px;border-radius:13px;background:#0d1422}.upload strong{font-size:14px}.upload small{font-size:12px}
+.btn{min-height:44px;border-radius:10px;font-size:13px;padding:11px 13px}.primary{box-shadow:0 7px 18px rgba(118,103,248,.18)}
+.preview{min-height:280px;border-radius:13px;padding:8px}.status{font-size:13px;line-height:1.6;border-radius:10px}.tip{line-height:1.6}
+@media(max-width:800px){.wrap{padding:12px}.top{gap:10px;margin-bottom:16px}.hero{margin-bottom:14px}.layout{gap:14px}.panel{padding:15px}.preview{min-height:240px}}
+@media(max-width:480px){.brand{gap:9px}.logo{width:38px;height:38px}.brand p{font-size:12px}.pill{font-size:11px;padding:6px 9px}.hero h2{font-size:25px}.row{grid-template-columns:1fr 1fr;gap:9px}.field{margin:11px 0}.upload{min-height:130px}.preview{min-height:210px}.actions{gap:8px}.actions .btn{min-width:0;padding:10px 8px}}
+
+/* Perbaikan kontras teks dan tata letak desktop agar lebih banyak konten terlihat dalam satu layar */
+.panel { color: #172033; background: #fff; }
+.panel h3 { color: #30245d; }
+.field label { color: #34405a !important; font-weight: 750; }
+.tip, .footer { color: #59657d; }
+input[type=text], textarea, select { color: #172033; background: #fff; border-color: #cbd5e1; }
+.upload { color: #172033; }
+.upload small { color: #53617b; }
+@media (min-width: 801px) {
+  .wrap { max-width: 1440px; padding: 12px 20px; }
+  .top { margin-bottom: 10px; }
+  .brand p { font-size: 12px; }
+  .hero { padding: 13px 20px; margin-bottom: 12px; border-radius: 16px; }
+  .hero h2 { font-size: 25px; line-height: 1.1; margin-bottom: 5px; }
+  .hero p { font-size: 12px; line-height: 1.4; max-width: 980px; }
+  .layout { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 12px; }
+  .panel { padding: 12px 15px; border-radius: 15px; }
+  .panel h3 { font-size: 14px; margin-bottom: 7px; }
+  .panel h3:before { height: 17px; }
+  .field { margin: 7px 0; }
+  .field label { font-size: 11px; margin-bottom: 4px; }
+  input[type=text], textarea, select { min-height: 34px; padding: 7px 9px; font-size: 12px; border-radius: 8px; }
+  textarea { min-height: 48px; }
+  .upload { min-height: 78px; padding: 8px 12px; border-radius: 11px; }
+  .upload strong { margin: 3px 0; font-size: 12px; }
+  .upload small { font-size: 10px; }
+  .upload img { max-height: 92px; }
+  .row { gap: 8px; }
+  .btn { min-height: 35px; padding: 7px 10px; font-size: 12px; border-radius: 8px; }
+  .primary { margin-top: 4px; }
+  .preview { min-height: 175px; padding: 6px; border-radius: 11px; }
+  .preview video { max-height: 260px; }
+  .empty { padding: 12px; font-size: 12px; }
+  .empty .symbol { font-size: 28px; margin-bottom: 2px; }
+  .actions { margin-top: 7px; gap: 7px; }
+  .captionBox { min-height: 48px; }
+  .tip { font-size: 10px; line-height: 1.35; margin-top: 6px; }
+  .status { margin-top: 7px; padding: 8px 10px; font-size: 11px; }
+  .footer { margin: 10px 0 0; font-size: 10px; }
+}
+@media (min-width: 801px) and (max-height: 800px) {
+  .hero p { display: none; }
+  .hero { padding: 10px 18px; margin-bottom: 9px; }
+  .hero h2 { font-size: 22px; }
+  .top { margin-bottom: 8px; }
+  .upload { min-height: 65px; }
+  .preview { min-height: 145px; }
+  .panel { padding: 10px 13px; }
+  .field { margin: 5px 0; }
+  textarea { min-height: 42px; }
+  .captionBox { min-height: 42px; }
+}
+
+
+/* DARK PRO: kontras tinggi, teks tebal, dan tata letak desktop ringkas */
+:root { color-scheme: dark; }
+body {
+  background: radial-gradient(ellipse at 15% 0%, #182b55 0%, #0a1020 45%, #070b14 100%) !important;
+  color: #f4f7ff !important;
+}
+.wrap { color: #f4f7ff; }
+.top, .brand, .brand h1, .brand p { color: #f8fbff !important; }
+.brand p { font-weight: 650 !important; }
+.hero {
+  background: linear-gradient(120deg, #18284b, #241b48 58%, #102e3b) !important;
+  border: 1px solid #42527d !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 28px #0005 !important;
+}
+.hero h2, .hero p { color: #ffffff !important; font-weight: 800 !important; }
+.panel {
+  background: linear-gradient(160deg, #141e32, #101827) !important;
+  border: 1px solid #354563 !important;
+  color: #f4f7ff !important;
+  box-shadow: 0 10px 28px #0006 !important;
+}
+.panel h3 { color: #8de9ff !important; font-weight: 900 !important; }
+.field label { color: #f2f6ff !important; font-weight: 850 !important; }
+input[type=text], input[type=file], textarea, select {
+  background: #091323 !important; color: #ffffff !important;
+  border: 1px solid #536584 !important; font-weight: 700 !important;
+}
+input::placeholder, textarea::placeholder { color: #bac7dc !important; opacity: 1 !important; }
+.upload {
+  background: #0c172a !important; border: 2px dashed #4f80bc !important;
+  color: #ffffff !important;
+}
+.upload strong, .upload small { color: #f5f8ff !important; font-weight: 800 !important; }
+.tip, .footer, .empty, .captionBox, .status { color: #f1f5ff !important; font-weight: 700 !important; }
+.preview { background: #060b14 !important; border: 1px solid #4c5e7d !important; }
+.empty { background: #0a1424 !important; }
+.btn { font-weight: 900 !important; }
+.status { background: #102b37 !important; border: 1px solid #2b8595 !important; }
+@media (min-width: 801px) {
+  .wrap { max-width: 1500px; padding: 8px 16px !important; }
+  .top { margin-bottom: 7px !important; }
+  .hero { padding: 9px 16px !important; margin-bottom: 8px !important; }
+  .hero h2 { font-size: 22px !important; line-height: 1.08 !important; margin: 0 0 3px !important; }
+  .hero p { font-size: 11px !important; line-height: 1.25 !important; margin: 0 !important; }
+  .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 9px !important; }
+  .panel { padding: 9px 12px !important; }
+  .panel h3 { font-size: 13px !important; margin: 0 0 5px !important; }
+  .field { margin: 5px 0 !important; }
+  .field label { font-size: 11px !important; margin-bottom: 3px !important; }
+  input[type=text], textarea, select { min-height: 31px !important; padding: 5px 8px !important; font-size: 12px !important; }
+  textarea { min-height: 38px !important; }
+  .upload { min-height: 54px !important; padding: 6px 10px !important; }
+  .upload strong { font-size: 11px !important; margin: 2px 0 !important; }
+  .upload small { font-size: 10px !important; }
+  .row { gap: 7px !important; }
+  .btn { min-height: 31px !important; padding: 5px 9px !important; font-size: 11px !important; }
+  .preview { min-height: 130px !important; padding: 4px !important; }
+  .preview video { max-height: 220px !important; }
+  .empty { padding: 8px !important; font-size: 11px !important; }
+  .empty .symbol { font-size: 23px !important; margin-bottom: 1px !important; }
+  .tip { font-size: 10px !important; line-height: 1.25 !important; margin-top: 4px !important; }
+  .status { margin-top: 5px !important; padding: 6px 8px !important; font-size: 10px !important; }
+  .footer { margin-top: 6px !important; font-size: 9px !important; }
+}
+@media (min-width: 801px) and (max-height: 760px) {
+  .hero p, .footer { display: none !important; }
+  .hero { padding: 7px 13px !important; margin-bottom: 6px !important; }
+  .hero h2 { font-size: 19px !important; }
+  .panel { padding: 7px 10px !important; }
+  .field { margin: 3px 0 !important; }
+  .upload { min-height: 45px !important; }
+  .preview { min-height: 105px !important; }
+  .preview video { max-height: 170px !important; }
+}
+@media (max-width: 800px) {
+  body { background: #0a1020 !important; }
+  .panel { padding: 14px !important; }
+  .hero h2 { font-size: 23px !important; }
+  .field label { font-size: 13px !important; }
+  input[type=text], textarea, select { font-size: 14px !important; }
+}
+
+
+/* PANEL MUDAH: alur langkah yang jelas, teks besar, pengaturan lanjutan dilipat */
+.panel h3 { font-size: 15px !important; letter-spacing: .25px; }
+.upload { min-height: 96px !important; }
+.upload strong { font-size: 14px !important; }
+.upload small { font-size: 12px !important; }
+.field label { font-size: 13px !important; }
+input[type=text], textarea, select { font-size: 14px !important; min-height: 40px !important; }
+.btn { font-size: 13px !important; min-height: 42px !important; }
+.primary { font-size: 15px !important; letter-spacing: .2px; }
+.advanced-settings {
+  margin: 10px 0 12px; padding: 10px 12px;
+  border: 1px solid #3b4d6c; border-radius: 11px;
+  background: #0b1424; color: #f3f6fc;
+}
+.advanced-settings summary {
+  cursor: pointer; font-weight: 850; font-size: 13px;
+  color: #8de9ff; list-style-position: inside;
+}
+.advanced-note { color: #c2cee2; font-size: 12px; margin: 6px 0; }
+.advanced-settings .field { margin: 9px 0; }
+.advanced-settings .field label { font-size: 12px !important; }
+.tip { font-size: 11px !important; }
+@media (min-width: 801px) {
+  .layout { align-items: start; }
+  .panel { padding: 14px !important; }
+  .upload { min-height: 80px !important; }
+  .field { margin: 8px 0 !important; }
+  .advanced-settings { margin: 8px 0; }
+}
+@media (max-width: 800px) {
+  .upload { min-height: 105px !important; }
+  .field label { font-size: 13px !important; }
+  .btn { min-height: 44px !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">▶</div><div><h1>AI Affiliate Video</h1><p>Foto produk → video promosi dengan AI</p></div></div>
+    <span class="pill">POWERED BY BAYU PROJECT</span>
+  </header>
+  <section class="hero">
+    <h2>Hidupkan foto produkmu.<br>Jadikan konten affiliate.</h2>
+    <p>Unggah foto produk, tentukan gerakannya, lalu buat video pendek untuk konten promosi. Periksa hasil AI sebelum dipublikasikan dan jangan menambahkan klaim produk yang tidak terbukti.</p>
+  </section>
+  <main class="layout">
+    <section class="panel">
+      <h3>LANGKAH 1 — SIAPKAN VIDEO</h3>
+      <label class="upload" id="uploadBox" for="photoInput">
+        <div id="uploadPrompt"><div style="font-size:32px">＋</div><strong>1. PILIH FOTO PRODUK</strong><small>Klik di sini untuk unggah foto JPG, PNG, atau WEBP</small></div>
+        <img id="photoPreview" class="hidden" alt="Pratinjau foto produk">
+        <input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp">
+      </label>
+      <div class="field"><label for="productName">2. NAMA PRODUK</label><input id="productName" type="text" placeholder="Contoh: botol minum stainless"></div>
+      <div class="field"><label for="motion">3. PILIH GAYA VIDEO</label>
+        <select id="motion">
+          <option value="The camera slowly pushes in toward the product, with subtle parallax and soft studio lighting. Keep the product shape, label, colors and proportions consistent.">Zoom sinematik — halus dan elegan</option>
+          <option value="The product rotates slowly on a clean display surface while the camera makes a gentle orbit. Preserve the exact product design and label.">Produk berputar perlahan</option>
+          <option value="A gentle camera pan from left to right, soft natural light moving across the product, premium commercial look. Keep the product unchanged.">Kamera bergerak kiri ke kanan</option>
+          <option value="The scene comes alive with subtle natural environmental motion and a gentle cinematic camera move. Keep the product stable and accurate.">Suasana hidup dan natural</option>
+          <option value="Create a polished vertical social-commerce product showcase with a slow push-in, clean background and smooth motion. Preserve product accuracy.">Iklan produk untuk Reels/TikTok</option>
+        </select>
+      </div>
+      <details class="advanced-settings">
+        <summary>Pengaturan tambahan (opsional)</summary>
+        <p class="advanced-note">Tidak perlu diubah jika Anda ingin cara paling mudah.</p>
+      <div class="row">
+        <div class="field"><label for="model">Model video</label><select id="model">
+          <option value="wan2.7-i2v">Wan 2.7 (image-to-video)</option>
+          <option value="seedance-1.5-pro">Seedance 1.5 Pro</option>
+          <option value="vidu/vidu-q1">Vidu Q1</option>
+        </select></div>
+        <div class="field"><label for="duration">Durasi</label><select id="duration"><option value="5">5 detik</option><option value="8">8 detik</option><option value="10">10 detik</option><option value="15">15 detik</option></select></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="ratio">Format konten</label><select id="ratio"><option value="9:16">Vertikal 9:16</option><option value="16:9">Lanskap 16:9</option><option value="1:1">Kotak 1:1</option></select></div>
+        <div class="field"><label for="audio">Audio</label><select id="audio"><option value="true">Audio AI jika didukung</option><option value="false">Tanpa audio</option></select></div>
+      </div>
+      <div class="field"><label for="extraPrompt">Instruksi tambahan (opsional)</label><textarea id="extraPrompt" placeholder="Contoh: latar meja kayu, cahaya pagi, suasana premium. Hindari teks di dalam video."></textarea></div>
+      </details>
+      <button id="generateBtn" class="btn primary">▶ BUAT VIDEO SEKARANG</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      <p class="tip">Video AI asli mungkin memerlukan login Puter dan kredit sesuai model. Jangan tutup halaman saat proses berlangsung.</p>
+    </section>
+    <section class="panel">
+      <h3>LANGKAH 2 — LIHAT HASIL</h3>
+      <div class="preview" id="videoPreview">
+        <div class="empty"><div class="symbol">▧ ▶</div><strong>HASIL VIDEO ANDA</strong><div style="margin-top:5px">Unggah foto produk, lalu tekan tombol BUAT VIDEO SEKARANG.</div></div>
+      </div>
+      <div class="actions">
+        <button id="downloadBtn" class="btn secondary" disabled>⬇ Unduh video</button>
+        <button id="newBtn" class="btn secondary">↻ Mulai ulang</button>
+      </div>
+      <div class="field"><label for="caption">TEKS PROMOSI / CAPTION</label><textarea id="caption" class="captionBox" placeholder="Caption promosi akan dibuat di sini. Anda juga bisa menulis sendiri."></textarea></div>
+      <div class="row">
+        <button id="captionBtn" class="btn secondary">✍ BUAT CAPTION AI</button>
+        <button id="copyCaptionBtn" class="btn secondary">SALIN CAPTION</button>
+      </div>
+      <p class="tip">Tautan affiliate tidak otomatis ditambahkan. Tempelkan tautan resmi milik Anda di caption setelah memeriksa ketentuan platform dan program affiliate.</p>
+    </section>
+  </main>
+  <footer class="footer">AI Affiliate Video Generator · Pastikan Anda memiliki hak untuk menggunakan foto dan merek produk.</footer>
+</div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let imageDataUrl = null;
+  let videoObjectUrl = null;
+  let videoElement = null;
+  let busy = false;
+
+  function status(message, type='') {
+    const el = $('status');
+    el.textContent = message;
+    el.className = 'status show' + (type ? ' ' + type : '');
+  }
+  function setBusy(value) {
+    busy = value;
+    $('generateBtn').disabled = value;
+    $('captionBtn').disabled = value;
+    $('generateBtn').innerHTML = value ? '<span class="spinner"></span>Membuat video…' : '✨ Buat video hidup';
+  }
+  function fileToDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('Foto gagal dibaca. Coba pilih file lain.'));
+      reader.readAsDataURL(file);
+    });
+  }
+  $('photoInput').addEventListener('change', async e => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { status('Pilih file gambar yang valid.', 'error'); return; }
+    if (file.size > 15 * 1024 * 1024) { status('Ukuran foto terlalu besar. Gunakan foto di bawah 15 MB.', 'error'); return; }
+    try {
+      imageDataUrl = await fileToDataUrl(file);
+      $('photoPreview').src = imageDataUrl;
+      $('photoPreview').classList.remove('hidden');
+      $('uploadPrompt').classList.add('hidden');
+      status('Foto siap. Atur gaya gerakan lalu buat video.', 'success');
+    } catch (err) { status(err.message, 'error'); }
+  });
+
+  $('generateBtn').addEventListener('click', async () => {
+    if (busy) return;
+    if (!imageDataUrl) { status('Unggah foto produk terlebih dahulu.', 'error'); return; }
+    if (!window.puter || !puter.ai || !puter.ai.txt2vid) {
+      status('Puter AI belum termuat. Periksa koneksi internet, lalu muat ulang halaman.', 'error'); return;
+    }
+    setBusy(true);
+    status('Mengirim foto dan instruksi ke Puter AI. Proses video dapat memerlukan beberapa menit. Jangan tutup halaman.');
+    try {
+      const product = $('productName').value.trim();
+      const extra = $('extraPrompt').value.trim();
+      const motion = $('motion').value;
+      const ratio = $('ratio').value;
+      const prompt = [
+        'Create a polished short product affiliate advertisement video based on the supplied reference image.',
+        product ? 'Product name: ' + product + '.' : '',
+        motion,
+        extra ? 'Additional direction: ' + extra : '',
+        'Keep the product faithful to the reference image. Do not invent extra packaging, logos, claims, text, discounts, or product features. Smooth realistic motion, clear product visibility, professional lighting.',
+        'Composition for aspect ratio ' + ratio + '.'
+      ].filter(Boolean).join(' ');
+      const model = $('model').value;
+      const options = { model, seconds: Number($('duration').value), aspect_ratio: ratio, input_reference: imageDataUrl, generate_audio: $('audio').value === 'true' };
+      let result;
+      try {
+        result = await puter.ai.txt2vid(prompt, options);
+      } catch (firstError) {
+        // Retry with broadly compatible options, preserving image-to-video behavior.
+        if (model === 'wan2.7-i2v') {
+          options.model = 'wan-ai/wan2.7-i2v';
+          result = await puter.ai.txt2vid(prompt, options);
+        } else {
+          throw firstError;
+        }
+      }
+      const sourceVideo = result && result.tagName === 'VIDEO' ? result : null;
+      const container = $('videoPreview');
+      container.innerHTML = '';
+      if (sourceVideo) {
+        videoElement = sourceVideo;
+        videoElement.controls = true;
+        videoElement.playsInline = true;
+        videoElement.style.width = '100%';
+        videoElement.style.maxHeight = '560px';
+        videoElement.style.borderRadius = '10px';
+        container.appendChild(videoElement);
+        const src = videoElement.currentSrc || videoElement.src || (videoElement.querySelector('source') && videoElement.querySelector('source').src);
+        if (src && src.startsWith('blob:')) videoObjectUrl = src;
+        $('downloadBtn').disabled = !src;
+        $('downloadBtn').dataset.src = src || '';
+        $('downloadBtn').dataset.filename = 'video-affiliate-ai.mp4';
+      } else if (typeof result === 'string') {
+        const video = document.createElement('video');
+        video.src = result; video.controls = true; video.playsInline = true; video.style.width = '100%';
+        container.appendChild(video); videoElement = video;
+        $('downloadBtn').disabled = false; $('downloadBtn').dataset.src = result;
+      } else {
+        throw new Error('AI mengembalikan format video yang belum dikenali. Coba model lain.');
+      }
+      status('Video selesai dibuat. Putar hasilnya dan gunakan tombol unduh jika tersedia.', 'success');
+    } catch (err) {
+      const msg = err && err.message ? err.message : String(err);
+      status('Gagal membuat video: ' + msg + '\n\nPeriksa login/kredit Puter, koneksi internet, ukuran foto, dan dukungan model. Tidak ada video yang dibuat jika permintaan AI gagal.', 'error');
+    } finally { setBusy(false); }
+  });
+
+  $('downloadBtn').addEventListener('click', async () => {
+    const src = $('downloadBtn').dataset.src;
+    if (!src) { status('Sumber unduhan belum tersedia. Coba buat video lagi.', 'error'); return; }
+    try {
+      const a = document.createElement('a');
+      a.href = src;
+      a.download = $('downloadBtn').dataset.filename || 'video-affiliate-ai.mp4';
+      a.target = '_blank';
+      document.body.appendChild(a); a.click(); a.remove();
+      status('Permintaan unduh dibuka. Jika file hanya diputar di tab baru, gunakan menu unduh pada pemutar/browser.', 'success');
+    } catch (err) { status('Unduhan tidak dapat dimulai: ' + err.message, 'error'); }
+  });
+
+  $('captionBtn').addEventListener('click', async () => {
+    if (!window.puter || !puter.ai || !puter.ai.chat) { status('Puter AI belum termuat. Periksa koneksi internet.', 'error'); return; }
+    $('captionBtn').disabled = true;
+    try {
+      const name = $('productName').value.trim() || 'produk ini';
+      const prompt = 'Tulis 3 pilihan caption affiliate berbahasa Indonesia untuk ' + name + '. Gaya natural, menarik, tidak berlebihan. Jangan membuat klaim manfaat, harga, diskon, stok, atau hasil yang tidak diberikan. Sertakan CTA sopan dan tagar relevan. Beri pengingat singkat untuk menambahkan tautan affiliate sendiri. Jangan mengarang spesifikasi produk.';
+      const response = await puter.ai.chat(prompt, { model: 'gpt-5.4-nano' });
+      let text = '';
+      if (typeof response === 'string') text = response;
+      else if (response && response.message && typeof response.message.content === 'string') text = response.message.content;
+      else text = JSON.stringify(response);
+      $('caption').value = text;
+      status('Caption AI selesai. Periksa kebenaran isi sebelum diposting.', 'success');
+    } catch (err) { status('Gagal membuat caption: ' + (err.message || err), 'error'); }
+    finally { $('captionBtn').disabled = false; }
+  });
+
+  $('copyCaptionBtn').addEventListener('click', async () => {
+    const text = $('caption').value.trim();
+    if (!text) { status('Belum ada caption untuk disalin.', 'error'); return; }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
+      else { $('caption').select(); document.execCommand('copy'); }
+      status('Caption disalin.', 'success');
+    } catch (err) { status('Tidak dapat menyalin otomatis. Pilih teks caption lalu salin manual.', 'error'); }
+  });
+
+  $('newBtn').addEventListener('click', () => {
+    if (busy) return;
+    imageDataUrl = null; videoElement = null; videoObjectUrl = null;
+    $('photoInput').value = ''; $('photoPreview').src = ''; $('photoPreview').classList.add('hidden'); $('uploadPrompt').classList.remove('hidden');
+    $('productName').value = ''; $('extraPrompt').value = ''; $('caption').value = '';
+    $('videoPreview').innerHTML = '<div class="empty"><div class="symbol">▧ ▶</div><strong>HASIL VIDEO ANDA</strong><div style="margin-top:5px">Unggah foto produk, lalu tekan tombol BUAT VIDEO SEKARANG.</div></div>';
+    $('downloadBtn').disabled = true; $('downloadBtn').dataset.src = '';
+    $('status').className = 'status'; $('status').textContent = '';
+  });
+})();
+</script>
+</body>
+</html>
